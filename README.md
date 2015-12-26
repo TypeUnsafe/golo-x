@@ -16,6 +16,7 @@ A jar file with Vert-x dependencies to pimp Vert-x with [Golo](http://golo-lang.
 module try_vertx
 
 import org.typeunsafe.golox.Golox
+import web.extensions
 
 function main = |args| {
 
