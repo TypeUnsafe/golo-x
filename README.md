@@ -37,6 +37,14 @@ function main = |args| {
     response: end(JSON.stringify(map[["message","Hello World from Golo.x-Web!"]]))
   })
 
+  # pimp my router
+  # http://localhost:9090/yo
+  router: get("/yo", |context| {
+    let response = context: response()
+    response: putHeader("content-type", "text/plain")
+    response: end("Yo from Golo.x-Web!")
+  })
+
   golox: startHttpServer(server, router, 9090, "/*")
 
 }
