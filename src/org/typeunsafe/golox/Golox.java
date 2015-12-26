@@ -11,12 +11,11 @@ import io.vertx.ext.web.handler.StaticHandler;
  */
 public class Golox {
 
-    static Vertx vertx = Vertx.vertx();
+    public static Vertx vertx = Vertx.vertx();
 
     public static HttpServer createHttpServer() {
         return Golox.vertx.createHttpServer();
     }
-
 
     public static Router getRouter() {
         Router router = Router.router(Golox.vertx);
@@ -30,5 +29,12 @@ public class Golox {
         return server;
     }
 
+    public static Long every(Long delay, Runnable r) {
+        return Golox.vertx.setPeriodic(delay, id -> {r.run();});
+    }
+
+    public static Long after(Long delay, Runnable r) {
+        return Golox.vertx.setTimer(delay, id -> {r.run();});
+    }
 
 }
