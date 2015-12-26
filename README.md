@@ -20,9 +20,8 @@ import web.extensions
 
 function main = |args| {
 
-  let golox = Golox()
-  let server = golox: createHttpServer()
-  let router = golox: getRouter()
+  let server = Golox.createHttpServer()
+  let router = Golox.getRouter()
 
   # http://localhost:9090/hello
   router: get("/hello"): handler(|context| {
@@ -42,11 +41,17 @@ function main = |args| {
   # http://localhost:9090/yo
   router: get("/yo", |context| {
     let response = context: response()
-    response: putHeader("content-type", "text/plain")
+    response: putHeader("content-type", "text/html")
     response: end("Yo from Golo.x-Web!")
   })
 
-  golox: startHttpServer(server, router, 9090, "/*")
+  # pimp RoutingContext
+  # http://localhost:9090/salut
+  router: get("/salut", |context| {
+    context: sendJson(DynamicObject(): message("Salut à tous!"))
+  })
+
+  Golox.startHttpServer(server, router, 9090, "/*")
 
 }
 ```

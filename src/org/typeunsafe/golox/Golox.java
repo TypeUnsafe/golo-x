@@ -13,20 +13,17 @@ public class Golox {
 
     static Vertx vertx = Vertx.vertx();
 
-    public Golox() {
-        System.out.println("Welcome to Golo-X");
-    }
-
-    public HttpServer createHttpServer() {
+    public static HttpServer createHttpServer() {
         return Golox.vertx.createHttpServer();
     }
 
-    public Router getRouter() {
+
+    public static Router getRouter() {
         Router router = Router.router(Golox.vertx);
         router.route().handler(BodyHandler.create());
         return router;
     }
-    public HttpServer startHttpServer(HttpServer server, Router router, Integer port, String staticPath) {
+    public static HttpServer startHttpServer(HttpServer server, Router router, Integer port, String staticPath) {
         System.out.println("HttpServer is listening on " + port);
         router.route(staticPath).handler(StaticHandler.create());
         server.requestHandler(router::accept).listen(port);
