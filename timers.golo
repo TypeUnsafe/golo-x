@@ -1,6 +1,5 @@
 module timers
 
-import org.typeunsafe.golox.Golox
 import tools
 
 function main = |args| {

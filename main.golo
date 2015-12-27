@@ -2,11 +2,8 @@ module try_vertx
 
 import org.typeunsafe.golox.Golox
 import web.extensions
-import tools
 
 function main = |args| {
-
-  every(4): seconds(): run(-> println("Yo!"))
 
   let server = Golox.createHttpServer()
   let router = Golox.getRouter()
