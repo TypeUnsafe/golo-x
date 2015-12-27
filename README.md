@@ -4,13 +4,13 @@ A jar file with Vert-x dependencies to pimp Vert-x with [Golo](http://golo-lang.
 
 ##Build jar
 
-    mvn compile assembly:single
+    ./build.sh
 
 ##Run
 
     ./golox.sh
 
-##Sample
+##Web Sample
 
 ```golo
 module try_vertx
@@ -56,6 +56,21 @@ function main = |args| {
 }
 ```
 
-##TODO:
+##Tools:
 
-- add timer
+Golox provides thanks to Vert-x some useful helpers
+
+###Timer DSL
+
+```golo
+let timer1 = every(2): seconds(): run(-> println("Yo!"))
+
+let timer2 = every(1000): milliSeconds(): run({
+  println("Hi!")
+})
+
+let endTimer = after(4): seconds(): run({
+  timer1: cancel()
+  timer2: cancel()
+})
+```

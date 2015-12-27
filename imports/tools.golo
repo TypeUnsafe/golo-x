@@ -20,7 +20,7 @@ augmentation time  = {
     this: delay(this: delay() * 1000_L)
     return this
   }
-  function milliSeconds = |this, delay| {
+  function milliSeconds = |this| {
     this: delay(this: delay() * 1_L)
     return this
   }
@@ -30,7 +30,7 @@ augment every with time
 augment after with time
 
 augment timer {
-  function cancel = |this| -> Golox.vertx.cancelTimer(this: id())
+  function cancel = |this| -> Golox.cancelTimer(this: id())
 }
 
 augment every {

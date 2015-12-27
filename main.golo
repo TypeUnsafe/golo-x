@@ -6,9 +6,7 @@ import tools
 
 function main = |args| {
 
-  every(4): seconds(): run({
-    println("---> Yo!")
-  })
+  every(4): seconds(): run(-> println("Yo!"))
 
   let server = Golox.createHttpServer()
   let router = Golox.getRouter()

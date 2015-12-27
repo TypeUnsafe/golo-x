@@ -37,4 +37,8 @@ public class Golox {
         return Golox.vertx.setTimer(delay, id -> {r.run();});
     }
 
+    public static void cancelTimer(Long id) {
+        Golox.vertx.cancelTimer(id);
+    }
+
 }
