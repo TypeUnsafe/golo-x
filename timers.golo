@@ -1,18 +1,28 @@
 module timers
 
-import tools
+import vert.x.helpers
 
 function main = |args| {
 
-  let timer1 = every(2): seconds(): run(-> println("Yo!"))
-
-  let timer2 = every(1000): milliSeconds(): run({
-    println("Hi!")
+  # each 1000 ms
+  let t1 = vertx(): setPeriodic(1000_L, |id| {
+    println("Hi!" + id)
   })
 
-  let endTimer = after(4): seconds(): run({
-    timer1: cancel()
-    timer2: cancel()
+  vertx(): setPeriodic(2000_L, |id| {
+    println("Yo!" + id)
   })
+
+  # after 5000 ms
+  vertx(): setTimer(5000_L, |id| {
+    println("Hello!" + id)
+    vertx(): cancelTimer(0_L)
+    vertx(): cancelTimer(1_L)
+  })
+
+
+
+
+
 
 }

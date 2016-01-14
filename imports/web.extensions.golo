@@ -7,25 +7,29 @@ augment io.vertx.ext.web.Router {
   function post = |this, uri, handler| {
     return this: post(uri): handler(handler)
   }
+  #TODO: put, delete
+}
+
+
+augment io.vertx.core.http.HttpServerResponse {
+  function json = |this, content| ->
+    this: putHeader("content-type", "application/json;charset=UTF-8")
+        : end(JSON.stringify(content))
+
+  function html = |this, content| ->
+    this: putHeader("content-type", "text/html;charset=UTF-8")
+        : end(content)
+
+  function text = |this, content| ->
+    this: putHeader("content-type", "text/plain;charset=UTF-8")
+        : end(content)
+}
+
+augment io.vertx.core.http.HttpServerRequest {
+  function param = |this, paramName| -> this: getParam(paramName)
 }
 
 augment io.vertx.ext.web.RoutingContext {
-  function param = |this, paramName| -> this: request(): getParam(paramName)
-
-  function sendJson = |this, content| ->
-    this: response()
-      : putHeader("content-type", "application/json;charset=UTF-8")
-      : end(JSON.stringify(content))
-
-  function sendHtml = |this, content| ->
-    this: response()
-      : putHeader("content-type", "text/html;charset=UTF-8")
-      : end(content)
-
-  function sendText = |this, content| ->
-    this: response()
-      : putHeader("content-type", "text/plain;charset=UTF-8")
-      : end(content)
 
   function bodyAsJson = |this| ->
     JSON.parse(this: getBodyAsString())
